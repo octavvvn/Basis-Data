@@ -1,0 +1,240 @@
+
+Setting environment for using XAMPP for Windows.
+octav@DESKTOP-DN4ARJA c:\xampp
+# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> \?
+
+General information about MariaDB can be found at
+http://mariadb.org
+
+List of all client commands:
+Note that all text commands must be first on line and end with ';'
+?         (\?) Synonym for `help'.
+clear     (\c) Clear the current input statement.
+connect   (\r) Reconnect to the server. Optional arguments are db and host.
+delimiter (\d) Set statement delimiter.
+edit      (\e) Edit command with $EDITOR.
+ego       (\G) Send command to MariaDB server, display result vertically.
+exit      (\q) Exit mysql. Same as quit.
+go        (\g) Send command to MariaDB server.
+help      (\h) Display this help.
+nopager   (\n) Disable pager, print to stdout.
+notee     (\t) Don't write into outfile.
+pager     (\P) Set PAGER [to_pager]. Print the query results via PAGER.
+print     (\p) Print current command.
+prompt    (\R) Change your mysql prompt.
+quit      (\q) Quit mysql.
+rehash    (\#) Rebuild completion hash.
+source    (\.) Execute an SQL script file. Takes a file name as an argument.
+status    (\s) Get status information from the server.
+system    (\!) Execute a system shell command.
+tee       (\T) Set outfile [to_outfile]. Append everything into given outfile.
+use       (\u) Use another database. Takes database name as argument.
+charset   (\C) Switch to another charset. Might be needed for processing binlog with multi-byte charsets.
+warnings  (\W) Show warnings after every statement.
+nowarning (\w) Don't show warnings after every statement.
+
+For server side help, type 'help contents'
+
+MariaDB [(none)]> SHOW DATABASES
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| dbkuliah_octa02    |
+| dbti02             |
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
++--------------------+
+7 rows in set (0.002 sec)
+
+MariaDB [(none)]> DROP DATABASES dbkuliah_octa02;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'DATABASES dbkuliah_octa02' at line 1
+MariaDB [(none)]> DROP DATABASE dbkuliah_octa02;
+Query OK, 0 rows affected (0.004 sec)
+
+MariaDB [(none)]> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| dbti02             |
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
++--------------------+
+6 rows in set (0.001 sec)
+
+MariaDB [(none)]> CREATE DATABASE dbkuliah_octa02;
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [(none)]> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| dbkuliah_octa02    |
+| dbti02             |
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
++--------------------+
+7 rows in set (0.001 sec)
+
+MariaDB [(none)]> USE dbkuliah_octa02;
+Database changed
+MariaDB [dbkuliah_octa02]> CREATE TABLE jurusan(
+    -> id int primary key auto_increment not null,
+    -> nama varchar(40) not null unique);
+Query OK, 0 rows affected (0.031 sec)
+
+MariaDB [dbkuliah_octa02]> DESC mahasiswa;
+ERROR 1146 (42S02): Table 'dbkuliah_octa02.mahasiswa' doesn't exist
+MariaDB [dbkuliah_octa02]> DESC jurusan;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nama  | varchar(40) | NO   | UNI | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+2 rows in set (0.021 sec)
+
+MariaDB [dbkuliah_octa02]> CREATE TABLE mahasiswa(
+    -> id int primary key auto_increment not null,
+    -> nim int not null,
+    -> nama varchar(40) not null,
+    -> alamat varchar(50) not null,
+    -> idjurusan int not null references jenis(id));
+Query OK, 0 rows affected (0.012 sec)
+
+MariaDB [dbkuliah_octa02]> DESC mahasiswa;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| id        | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nim       | int(11)     | NO   |     | NULL    |                |
+| nama      | varchar(40) | NO   |     | NULL    |                |
+| alamat    | varchar(50) | NO   |     | NULL    |                |
+| idjurusan | int(11)     | NO   |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+5 rows in set (0.024 sec)
+
+MariaDB [dbkuliah_octa02]> DESC jurusan;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nama  | varchar(40) | NO   | UNI | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+2 rows in set (0.026 sec)
+
+MariaDB [dbkuliah_octa02]> DESC mahasiswa;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| id        | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nim       | int(11)     | NO   |     | NULL    |                |
+| nama      | varchar(40) | NO   |     | NULL    |                |
+| alamat    | varchar(50) | NO   |     | NULL    |                |
+| idjurusan | int(11)     | NO   |     | NULL    |                |
+| foto      | varchar(30) | YES  |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+6 rows in set (0.024 sec)
+
+MariaDB [dbkuliah_octa02]> SELECT * FROM jurusan;
+Empty set (0.011 sec)
+
+MariaDB [dbkuliah_octa02]> SELECT * FROM mahasiswa;
+Empty set (0.001 sec)
+
+MariaDB [dbkuliah_octa02]> DESC jurusan;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nama  | varchar(40) | NO   | UNI | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+2 rows in set (0.021 sec)
+
+MariaDB [dbkuliah_octa02]> INSERT INTO jurusan (nama) VALUES
+    -> ('Teknik Informatika'),('Sistem Informasi'),('Bisnis Digital'),('Teknik sipil'),('Psikologi');
+Query OK, 5 rows affected (0.004 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [dbkuliah_octa02]> SELECT * FROM jurusan;
++----+--------------------+
+| id | nama               |
++----+--------------------+
+|  3 | Bisnis Digital     |
+|  5 | Psikologi          |
+|  2 | Sistem Informasi   |
+|  1 | Teknik Informatika |
+|  4 | Teknik sipil       |
++----+--------------------+
+5 rows in set (0.001 sec)
+
+MariaDB [dbkuliah_octa02]> DESC mahasiswa;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| id        | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nim       | int(11)     | NO   |     | NULL    |                |
+| nama      | varchar(40) | NO   |     | NULL    |                |
+| alamat    | varchar(50) | NO   |     | NULL    |                |
+| idjurusan | int(11)     | NO   |     | NULL    |                |
+| foto      | varchar(30) | YES  |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+6 rows in set (0.020 sec)
+
+MariaDB [dbkuliah_octa02]> INSERT INTO mahasiswa (nim,nama,alamat,idjurusan,foto) VALUES
+    -> (23341,'Nami','Jakarta',3,'namifoto.jpg'),
+    -> (24452,'Sanji','Tangerang',2,'sanjifoto.jpg'),
+    -> (25563,'Franky','Jakarta',1,'frankyfoto.jpg'),
+    -> (26673,'Robin','Jakarta',5,'robinfoto.jpg'),
+    -> (27784,'Zoro','Bogor',4,'zorofoto.jpg');
+Query OK, 5 rows affected (0.004 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [dbkuliah_octa02]> SELECT * FROM mahasiswa;
++----+-------+--------+-----------+-----------+----------------+
+| id | nim   | nama   | alamat    | idjurusan | foto           |
++----+-------+--------+-----------+-----------+----------------+
+|  1 | 23341 | Nami   | Jakarta   |         3 | namifoto.jpg   |
+|  2 | 24452 | Sanji  | Tangerang |         2 | sanjifoto.jpg  |
+|  3 | 25563 | Franky | Jakarta   |         1 | frankyfoto.jpg |
+|  4 | 26673 | Robin  | Jakarta   |         5 | robinfoto.jpg  |
+|  5 | 27784 | Zoro   | Bogor     |         4 | zorofoto.jpg   |
++----+-------+--------+-----------+-----------+----------------+
+5 rows in set (0.001 sec)
+
+MariaDB [dbkuliah_octa02]> SELECT * FROM jurusan;
++----+--------------------+
+| id | nama               |
++----+--------------------+
+|  3 | Bisnis Digital     |
+|  5 | Psikologi          |
+|  2 | Sistem Informasi   |
+|  1 | Teknik Informatika |
+|  4 | Teknik sipil       |
++----+--------------------+
+5 rows in set (0.001 sec)
+
+MariaDB [dbkuliah_octa02]> \q
+Bye
+
+octav@DESKTOP-DN4ARJA c:\xampp
+#
